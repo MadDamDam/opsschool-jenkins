@@ -7,7 +7,6 @@ variable "aws_region" {
 
 variable default_keypair_name {
   description = "Name of the KeyPair used for all nodes"
-  default = "test-kp"
 }
 
 variable instance_type {
@@ -31,5 +30,5 @@ variable vpc_id {
 }
 
 variable jenkins_ami {
-	default = "ami-09d2b92970234d769"
+	default = "ami-0626759c3363e9735"
 }
