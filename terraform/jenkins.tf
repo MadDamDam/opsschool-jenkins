@@ -1,4 +1,4 @@
-
+  
 # Get Ubuntu AMI information 
 data "aws_ami" "ubuntu" {
     most_recent = true
@@ -61,7 +61,7 @@ resource "aws_security_group" "jenkins_sg" {
 resource "aws_instance" "jenkins" {
     count         = "${var.jenkins_servers}"
     ami           = "${var.jenkins_ami}"
-    instance_type = "${var.instance_type}"
+    instance_type = "${var.master_instance_type}"
 
     subnet_id              = "${element(data.aws_subnet_ids.subnets.ids, count.index)}"
     vpc_security_group_ids = ["${aws_security_group.jenkins_sg.id}"]
@@ -78,7 +78,7 @@ resource "aws_instance" "jenkins" {
 resource "aws_instance" "jenkins_slave" {
     count         = "${var.jenkins_slaves}"
     ami           = "${data.aws_ami.ubuntu.id}"
-    instance_type = "${var.instance_type}"
+    instance_type = "${var.slave_instance_type}"
 
     subnet_id              = "${element(data.aws_subnet_ids.subnets.ids, count.index)}"
     vpc_security_group_ids = ["${aws_security_group.jenkins_sg.id}"]
@@ -97,5 +97,5 @@ output "jenkins_server_public_ip" {
 }
 
 output "jenkins_slave_private_ip" {
-  value = "${join(",", aws_instance.jenkins.*.private_ip)}"
+  value = "${join(",", aws_instance.jenkins_slave.*.private_ip)}"
 }

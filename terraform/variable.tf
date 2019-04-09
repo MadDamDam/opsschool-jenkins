@@ -9,8 +9,12 @@ variable default_keypair_name {
   description = "Name of the KeyPair used for all nodes"
 }
 
-variable instance_type {
+variable master_instance_type {
   default = "t3.small"
+}
+
+variable slave_instance_type {
+  default = "t3.micro"
 }
 
 variable jenkins_servers {
