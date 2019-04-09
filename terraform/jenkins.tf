@@ -84,6 +84,8 @@ resource "aws_instance" "jenkins_slave" {
     vpc_security_group_ids = ["${aws_security_group.jenkins_sg.id}"]
     key_name               = "${var.default_keypair_name}"
 
+    associate_public_ip_address = false
+
     tags {
       Owner           = "${var.owner}"
       Name            = "Jenkins-slave${count.index}"
